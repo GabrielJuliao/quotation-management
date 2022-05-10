@@ -29,12 +29,12 @@ public class QuotationController implements QuotationDoc {
     @Override
     @GetMapping("{uuid}")
     public ResponseEntity<?> getQuotationById(@PathVariable UUID uuid) {
-        return new ResponseEntity<>(quotationService.readOne(uuid), HttpStatus.OK);
+        return new ResponseEntity<>(quotationService.readOneById(uuid), HttpStatus.OK);
     }
 
     @Override
     @GetMapping
     public ResponseEntity<?> getAllQuotations() {
-        return null;
+        return new ResponseEntity<>(quotationService.readAll(), HttpStatus.OK);
     }
 }

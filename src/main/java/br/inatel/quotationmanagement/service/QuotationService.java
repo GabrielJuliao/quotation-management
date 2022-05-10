@@ -12,9 +12,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Objects;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
 @Setter
@@ -48,7 +48,7 @@ public class QuotationService {
         throw new InvalidStockException();
     }
 
-    public QuotationDTO readOne(UUID uuid) {
+    public QuotationDTO readOneById(UUID uuid) {
         Optional<Quotation> optionalQuotation = quotationRepository.findById(uuid);
         if (optionalQuotation.isPresent()) {
             Quotation quotation = optionalQuotation.get();
@@ -61,7 +61,17 @@ public class QuotationService {
         throw new ResourceNotFoundException();
     }
 
-    //readAll
+    public Collection<QuotationDTO> readAll() {
+        Iterable<Quotation> quotationList = quotationRepository.findAll();
+        return StreamSupport.stream(quotationList.spliterator(), false)
+                .map(
+                        quotation -> new QuotationDTO(
+                                quotation.getId(),
+                                quotation.getStockId(),
+                                quotation.getQuotes()
+                        )
+                ).collect(Collectors.toList());
+    }
 
     private Boolean isQuotationValid(String stockId) {
         ResponseEntity<StockDTO[]> responseEntity = restTemplate.getForEntity(stockManagerUrl + "/stock", StockDTO[].class);

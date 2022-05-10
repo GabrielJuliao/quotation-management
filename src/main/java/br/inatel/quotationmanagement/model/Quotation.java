@@ -18,20 +18,25 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 @ToString
+@Table(name = "quotation")
 public class Quotation {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
-
-    /**
-     * @Column(columnDefinition = "BINARY(16)")
-     * Is necessary to query id's while using UUID due to the database adding zeros to the rest of the id.
-     */
-    @Column(columnDefinition = "BINARY(16)")
+    /*
+      @Column(columnDefinition = "BINARY(16)")
+      Is necessary to query id's while using UUID due to the database adding zeros to the rest of the id.
+    */
+    @Column(name = "id", columnDefinition = "BINARY(16)")
     private UUID id;
+
+    @Column(name = "stockId")
     private String stockId;
 
     @ElementCollection
+    @CollectionTable(name = "quotation_quotes")
+    @MapKeyJoinColumn(name = "quotes_key")
+    @Column(name = "quotes")
     private Map<LocalDate, String> quotes = new HashMap<>();
 
     @Override
