@@ -22,6 +22,12 @@ public class Quotation {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
+
+    /**
+     * @Column(columnDefinition = "BINARY(16)")
+     * Is necessary to query id's while using UUID due to the database adding zeros to the rest of the id.
+     */
+    @Column(columnDefinition = "BINARY(16)")
     private UUID id;
     private String stockId;
 

@@ -27,9 +27,9 @@ public class QuotationController implements QuotationDoc {
     }
 
     @Override
-    @GetMapping("{id}")
-    public ResponseEntity<?> getQuotationById(@PathVariable UUID id) {
-        return null;
+    @GetMapping("{uuid}")
+    public ResponseEntity<?> getQuotationById(@PathVariable UUID uuid) {
+        return new ResponseEntity<>(quotationService.readOne(uuid), HttpStatus.OK);
     }
 
     @Override
