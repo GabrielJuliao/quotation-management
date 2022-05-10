@@ -2,6 +2,7 @@ package br.inatel.quotationmanagement.service;
 
 import br.inatel.quotationmanagement.dto.QuotationDTO;
 import br.inatel.quotationmanagement.dto.StockDTO;
+import br.inatel.quotationmanagement.exceptions.InvalidStockException;
 import br.inatel.quotationmanagement.model.Quotation;
 import br.inatel.quotationmanagement.repository.QuotationRepository;
 import lombok.Getter;
@@ -29,7 +30,7 @@ public class QuotationService {
 
     public QuotationDTO createOne(QuotationDTO quotationDTO) {
         if (isQuotationValid(quotationDTO.getStockId())) {
-            Quotation  quotation = quotationRepository
+            Quotation quotation = quotationRepository
                     .save(
                             Quotation.builder()
                                     .stockId(quotationDTO.getStockId())
@@ -43,8 +44,7 @@ public class QuotationService {
                     .quotes(quotation.getQuotes())
                     .build();
         }
-// TODO: 5/9/2022 THROW EXCEPTION
-        return null;
+        throw new InvalidStockException();
     }
 
     //readOne
@@ -52,7 +52,7 @@ public class QuotationService {
     //readAll
 
     private Boolean isQuotationValid(String stockId) {
-        ResponseEntity<StockDTO[]> responseEntity = restTemplate.getForEntity(stockManagerUrl+"/stock", StockDTO[].class);
+        ResponseEntity<StockDTO[]> responseEntity = restTemplate.getForEntity(stockManagerUrl + "/stock", StockDTO[].class);
         StockDTO[] stockDTOList = Objects.requireNonNull(responseEntity.getBody());
 
         for (StockDTO s : stockDTOList) {
