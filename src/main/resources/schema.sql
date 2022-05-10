@@ -1,6 +1,6 @@
 DROP DATABASE IF EXISTS quotation_management_SDCU0R75HV;
 CREATE DATABASE quotation_management_SDCU0R75HV;
-
+--DB SELECTION;
 USE quotation_management_SDCU0R75HV;
 
 CREATE TABLE quotation (
