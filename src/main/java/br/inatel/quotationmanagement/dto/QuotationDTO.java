@@ -19,4 +19,7 @@ public class QuotationDTO {
     @NotEmpty
     private String stockId;
     private Map<@NotNull LocalDate,@NotEmpty @Pattern(regexp = "^[1-9]+[0-9]*$") String> quotes;
+
+    public QuotationDTO() {
+    }
 }

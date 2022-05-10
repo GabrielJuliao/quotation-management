@@ -7,7 +7,11 @@ import br.inatel.quotationmanagement.exceptions.ResourceNotFoundException;
 import br.inatel.quotationmanagement.model.Quotation;
 import br.inatel.quotationmanagement.repository.QuotationRepository;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -17,11 +21,13 @@ import java.util.stream.StreamSupport;
 @Setter
 public class QuotationService {
     private final QuotationRepository quotationRepository;
-    private final StockService stockService;
+    private final RestTemplate restTemplate;
+    @Value("${app.stock-manager.stock-url}")
+    private String stocksUrl;
 
-    public QuotationService(QuotationRepository quotationRepository, StockService stockService) {
+    public QuotationService(QuotationRepository quotationRepository, RestTemplate restTemplate) {
         this.quotationRepository = quotationRepository;
-        this.stockService = stockService;
+        this.restTemplate = restTemplate;
     }
 
     public QuotationDTO createOne(QuotationDTO quotationDTO) {
@@ -69,7 +75,7 @@ public class QuotationService {
     }
 
     private boolean isQuotationValid(String stockId) {
-        for (StockDTO s : stockService.getRegisteredStocks()) {
+        for (StockDTO s : getRegisteredStocks()) {
             if (s.getId().equals(stockId)) {
                 return true;
             }
@@ -77,4 +83,9 @@ public class QuotationService {
         return false;
     }
 
+    @Cacheable("registered-stocks")
+    private List<StockDTO> getRegisteredStocks() {
+        ResponseEntity<StockDTO[]> responseEntity = restTemplate.getForEntity(stocksUrl, StockDTO[].class);
+        return Arrays.stream(Objects.requireNonNull(responseEntity.getBody())).collect(Collectors.toList());
+    }
 }
