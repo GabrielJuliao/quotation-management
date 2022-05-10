@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.UUID;
 
 @RestController
@@ -22,7 +23,7 @@ public class QuotationController implements QuotationDoc {
 
     @Override
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> createQuotation(@RequestBody QuotationDTO quotationDTO) {
+    public ResponseEntity<?> createQuotation(@RequestBody @Valid QuotationDTO quotationDTO) {
         return new ResponseEntity<>(quotationService.createOne(quotationDTO), HttpStatus.OK);
     }
 
