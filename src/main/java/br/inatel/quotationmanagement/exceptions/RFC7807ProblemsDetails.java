@@ -1,10 +1,17 @@
 package br.inatel.quotationmanagement.exceptions;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 public class RFC7807ProblemsDetails {
+    @Schema(name = "type", example = "about:blank")
     private String type = "about:blank";
+    @Schema(name = "title", example = "error title")
     private String title;
+    @Schema(name = "status", example = "0")
     private int status;
+    @Schema(name = "detail", example = "error message")
     private String detail;
+    @Schema(name = "instance", example = "about:blank")
     private String instance = "about:blank";
 
     public RFC7807ProblemsDetails(String title, int status, String detail) {

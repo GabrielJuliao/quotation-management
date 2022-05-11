@@ -1,35 +1,52 @@
 package br.inatel.quotationmanagement.swagger;
 
 import br.inatel.quotationmanagement.dto.QuotationDTO;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import br.inatel.quotationmanagement.exceptions.RFC7807ProblemsDetails;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.ResponseEntity;
 
 import java.util.UUID;
 
 public interface QuotationDoc {
-    @ApiOperation(value = "Creates a quotation then returns")
+
+    @Operation(operationId = "createQuotation", description = "Creates a stock quotation")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Return the quotation"),
-            @ApiResponse(code = 403, message = "You do not have permission to access this resource"),
-            @ApiResponse(code = 500, message = "Internal server error"),
+            @ApiResponse(responseCode = "201", description = "Returns a quotation", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = QuotationDTO.class))
+            }),
+            @ApiResponse(responseCode = "400", description = "Bad request", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = RFC7807ProblemsDetails.class))
+            }),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
+
     })
     ResponseEntity<?> createQuotation(QuotationDTO quotationDTO);
 
-    @ApiOperation(value = "Get a specific quotation by id")
+    @Operation(operationId = "getQuotationById", description = "Get a specific quotation by UUID")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Get the quotation"),
-            @ApiResponse(code = 403, message = "You do not have permission to access this resource"),
-            @ApiResponse(code = 500, message = "Internal server error"),
+            @ApiResponse(responseCode = "200", description = "Returns a specific quotation", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = QuotationDTO.class))
+            }),
+            @ApiResponse(responseCode = "404", description = "Resource not found", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = RFC7807ProblemsDetails.class))
+            }),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
     })
     ResponseEntity<?> getQuotationById(UUID id);
 
-    @ApiOperation(value = "Get a list of all quotations")
+    @Operation(operationId = "getAllQuotations", description = "Get a list of quotations")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Get a list of quotations"),
-            @ApiResponse(code = 403, message = "You do not have permission to access this resource"),
-            @ApiResponse(code = 500, message = "Internal server error"),
+            @ApiResponse(responseCode = "200", description = "Get a list of all quotations", content = {
+                    @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = QuotationDTO.class)))
+            }),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
     })
     ResponseEntity<?> getAllQuotations();
 }
