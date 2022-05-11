@@ -13,6 +13,6 @@ public class StockCacheController {
     @DeleteMapping
     @CacheEvict(value = "registered-stocks", allEntries = true)
     public ResponseEntity<?> evictStocks() {
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 }

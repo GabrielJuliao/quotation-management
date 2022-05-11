@@ -24,7 +24,7 @@ public class QuotationController implements QuotationDoc {
     @Override
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> createQuotation(@RequestBody @Valid QuotationDTO quotationDTO) {
-        return new ResponseEntity<>(quotationService.createOne(quotationDTO), HttpStatus.OK);
+        return new ResponseEntity<>(quotationService.createOne(quotationDTO), HttpStatus.CREATED);
     }
 
     @Override

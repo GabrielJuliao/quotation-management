@@ -9,6 +9,7 @@ import org.springframework.web.client.RestTemplate;
 @SpringBootApplication
 @EnableCaching
 public class QuotationManagementApplication {
+
     @Bean
     public RestTemplate restTemplate() {
         return new RestTemplate();

@@ -18,7 +18,7 @@ public class QuotationDTO {
     private UUID id;
     @NotEmpty
     private String stockId;
-    private Map<@NotNull LocalDate,@NotEmpty @Pattern(regexp = "^[1-9]+[0-9]*$") String> quotes;
+    private Map<@NotNull LocalDate,@NotEmpty @Pattern(regexp = "^[0-9]+[0-9]*$") String> quotes;
 
     public QuotationDTO() {
     }
