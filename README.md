@@ -1,5 +1,15 @@
 # quotation-management
 
+## Maven
+<b>NOTE:</b> this applciation contains mutiple spring profiles, make sure you are using the right one when building it, the default is <code>application.properties</code>
+#### To:
+<ul>
+<li>compile <code>mvnw compile</code></li>
+<li>test <code>mvnw test</code></li>
+<li>package <code>mvnw clean package -DskipTests</code> flag "-DskipTests" is necessary because the application rellies on an external MySQL database, only package without it if you have the required database up and running.</li>
+
+</ul>
+
 ## Swagger Endpoints
 <ul>
 <li>SwaggerUI: <code>/api/swagger-ui/index.html</code></li>
@@ -23,7 +33,7 @@
 
 #### To:
 <ul>
-<li>pull the image<code>docker pull gabrieljuliao/quotation-manager</code></li>
+<li>pull the image <code>docker pull gabrieljuliao/quotation-manager</code></li>
 </ul>
 
 The container accepts the following env variables:
