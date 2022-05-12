@@ -1,17 +1,17 @@
 # quotation-management
 
-##Swagger Endpoints
+## Swagger Endpoints
 <ul>
 <li>SwaggerUI: <code>/api/swagger-ui/index.html</code></li>
 <li>API Docs: <code>/api/v3/api-docs</code></li>
 </ul>
 
-##Docker Deployment
+## Docker Deployment
 
-###Automatically
+### Automatically
 <p>For deploying this application on Docker you can use the convinience script <code>docker-deploy.sh</code></p>
 
-####To:
+#### To:
 <ul>
 <li>auto-deploy: <code>./docker-deploy.sh</code></li>
 <li>stop and remove the containers: <code>./docker-deploy.sh -c</code> or <code>./docker-deploy.sh --clear</code></li>
@@ -19,9 +19,9 @@
 <li>destroy all images and containers: <code>./docker-deploy.sh -t</code> or <code>./docker-deploy.sh --teardown</code></li>
 </ul>
 
-###Manually
+### Manually
 
-####To:
+#### To:
 <ul>
 <li>pull the image<code>docker pull gabrieljuliao/quotation-manager</code></li>
 </ul>
