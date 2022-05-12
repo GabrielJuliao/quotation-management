@@ -32,9 +32,8 @@ public class ServiceAutoRegister {
             restTemplate.postForEntity(registerUrl, notificationDTO, NotificationDTO[].class);
             logger.info("Service registered sucessfully at stock-manager service with: " + registerHost + ":" + registerPort);
         } catch (Exception e) {
-            logger.error("Could not register service at stock-manager, check if the service is running.");
-            e.printStackTrace();
-            System.exit(-1);
+            logger.warn("Could not register service at stock-manager, check if the service is running and restart the application or register the service manually.");
+            logger.error(e.getMessage());
         }
     }
 }
