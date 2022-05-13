@@ -24,9 +24,9 @@ Inatel Technical Evaluation 1
 
 #### To:
 <ul>
-<li>run attached<code>docker compose up</code></li>
-<li>run dettached<code>docker compose up -d</code></li>
-<li>stop<code>docker compose stop</code></li>
+<li>run attached <code>docker compose up</code></li>
+<li>run dettached <code>docker compose up -d</code></li>
+<li>stop <code>docker compose stop</code></li>
 </ul>
 
 ### Without Docker compose:
