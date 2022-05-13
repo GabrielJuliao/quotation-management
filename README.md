@@ -1,5 +1,5 @@
 # quotation-management
-
+Inatel Technical Evaluation 1
 # Maven
 <b>NOTE:</b> this applciation contains mutiple spring profiles, make sure you are using the right one when building it, the default is <code>application.properties</code>
 #### To:
