@@ -12,7 +12,7 @@ Inatel Technical Evaluation 1
 
 # Swagger Endpoints
 <ul>
-<li>SwaggerUI: <code>/api/swagger-ui/index.html</code></li>
+<li>Swagger UI: <code>/api/swagger-ui/index.html</code></li>
 <li>API Docs: <code>/api/v3/api-docs</code></li>
 </ul>
 
