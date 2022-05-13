@@ -1,6 +1,6 @@
 # quotation-management
 
-## Maven
+# Maven
 <b>NOTE:</b> this applciation contains mutiple spring profiles, make sure you are using the right one when building it, the default is <code>application.properties</code>
 #### To:
 <ul>
@@ -10,16 +10,27 @@
 
 </ul>
 
-## Swagger Endpoints
+# Swagger Endpoints
 <ul>
 <li>SwaggerUI: <code>/api/swagger-ui/index.html</code></li>
 <li>API Docs: <code>/api/v3/api-docs</code></li>
 </ul>
 
-## Docker Deployment
+# Docker Deployment
 
-### Automatically
-<p>For deploying this application on Docker you can use the convinience script <code>docker-deploy.sh</code></p>
+## Automatically
+
+### With Docker compose:
+
+#### To:
+<ul>
+<li>run attached<code>docker compose up</code></li>
+<li>run dettached<code>docker compose up -d</code></li>
+<li>stop<code>docker compose stop</code></li>
+</ul>
+
+### Without Docker compose:
+<p>For deploying this application on Docker without Docker compose you can use the convinience script <code>docker-deploy.sh</code></p>
 
 #### To:
 <ul>
@@ -29,14 +40,14 @@
 <li>destroy all images and containers: <code>./docker-deploy.sh -t</code> or <code>./docker-deploy.sh --teardown</code></li>
 </ul>
 
-### Manually
+## Manually
 
-#### To:
+#### INFO:
 <ul>
-<li>pull the image <code>docker pull gabrieljuliao/quotation-manager</code></li>
+<li>docker hub image <code>gabrieljuliao/quotation-manager</code></li>
 </ul>
 
-The container accepts the following env variables:
+#### ACCEPTED ENVIROMENT VARIABLES:
 <ul>
 <li><b>SERVER_PORT</b> default value: <code>8081</code></li>
 <li><b>DATASOURCE_URL</b> default value: <code>jdbc:mysql://mysqldb:3306/bootdb</code></li>

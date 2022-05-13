@@ -1,0 +1,52 @@
+services:
+  # MySQL
+  mysql:
+    image: mysql:8
+    container_name: mysqldb
+    networks:
+      - quotation-network
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: bootdb
+    healthcheck:
+      test: [ "CMD-SHELL", "mysqladmin ping" ]
+      interval: 10s
+      timeout: 2s
+      retries: 6
+
+  # stock-manger
+  stock-manager:
+    image: lucasvilela/stock-manager
+    container_name: stock-manager
+    networks:
+      - quotation-network
+    ports:
+      - "8080:8080"
+
+  # quotation-manger
+  quotation-manager:
+    image: gabrieljuliao/quotation-manager
+    container_name: quotation-manager
+    networks:
+      - quotation-network
+    environment:
+      SERVER_PORT: 8081
+      DATASOURCE_URL: "jdbc:mysql://mysqldb:3306/bootdb"
+      DATASOURCE_USERNAME: "root"
+      DATASOURCE_PASSWORD: "root"
+      STOCK_MANAGER_STOCK_URL: "http://stock-manager:8080/stock"
+      STOCK_MANAGER_NOTIFICATION_URL: "http://stock-manager:8080/notification"
+      STOCK_MANAGER_NOTIFICATION_HOST: "quotation-manager"
+      STOCK_MANAGER_NOTIFICATION_PORT: 8081
+    ports:
+      - "8081:8081"
+    depends_on:
+      mysql:
+        condition: service_healthy
+      stock-manager:
+        condition: service_started
+
+
+networks:
+  quotation-network:
+    driver: bridge

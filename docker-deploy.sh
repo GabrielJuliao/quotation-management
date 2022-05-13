@@ -1,4 +1,6 @@
 #!/bin/bash
+printf "Convinience script for Docker deployment v0.1\n"
+printf "Script created by Gabriel Juliao. \nSee more on: https://github.com/GabrielJuliao \n\n"
 # continers config
 NETWORK_NAME="quotation-network"
 #MySQL
